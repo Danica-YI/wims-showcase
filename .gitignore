@@ -2,3 +2,5 @@ node_modules/
 .wims/
 check-*.png
 .superpowers/
+debug-*.png
+capture.log
