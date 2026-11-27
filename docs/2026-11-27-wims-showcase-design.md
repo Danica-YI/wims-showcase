@@ -10,7 +10,7 @@ so a recruiter scrolling for about a minute understands what it does and how it 
 - Every function shown with real screenshots or short clips from the live app, each with 2–3 plain captions.
 - Skimmable on a laptop and on a phone.
 - Links to the GitHub repo and the live demo (with the test accounts, for the rare visitor who wants to try).
-- A short "How it's built" section: stack, architecture, tests, CI/CD, deployment.
+- (Removed 2026-11-27 at the owner's request: no "How it's built" section; the hero eyebrow and facts strip still name the stack.)
 
 ## Non-goals
 - No backend, no live data, no interactive replica (approach A was not chosen).
@@ -49,7 +49,7 @@ so a recruiter scrolling for about a minute understands what it does and how it 
 3. One section per function, with an Admin/Staff badge:
    login and roles (admin and staff dashboards side by side), stock, inbound/outbound, low-stock alerts,
    purchase orders and tracking, suppliers, stock adjustments, user management, search.
-4. How it's built: React + Vite, Express, MongoDB Atlas, JWT; a simple architecture diagram; Mocha/Chai/Sinon tests;
+4. (Removed 2026-11-27 at the owner's request.) How it's built: React + Vite, Express, MongoDB Atlas, JWT; a simple architecture diagram; Mocha/Chai/Sinon tests;
    GitHub Actions CI; deployed on Vercel + Render, previously AWS EC2 with Nginx and PM2.
 5. Footer: links and test accounts.
 Click any screenshot to open it full size.

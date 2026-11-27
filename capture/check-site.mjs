@@ -16,7 +16,7 @@ const VIEWPORTS = [
 
 const REQUIRED_IDS = [
   'walkthrough', 'features', 'roles', 'stock', 'movements', 'alerts', 'orders',
-  'suppliers', 'adjustments', 'users', 'search', 'built', 'demo-link',
+  'suppliers', 'adjustments', 'users', 'search', 'demo-link',
 ];
 
 let failed = 0;

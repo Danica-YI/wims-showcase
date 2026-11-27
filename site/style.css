@@ -429,37 +429,6 @@ section[id], div[id] { scroll-margin-top: 72px; }
 .thumb[aria-pressed="true"] img { border-color: var(--accent); opacity: 1; }
 .thumb-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Architecture */
-.arch { margin: 0 0 48px; }
-.arch svg { width: 100%; height: auto; font-family: var(--font); }
-.arch-narrow { display: block; max-width: 420px; margin: 0 auto; }
-.arch-wide { display: none; }
-.arch-node {
-  fill: var(--surface);
-  stroke: #D9CFC1;
-  stroke-width: 1.5;
-}
-.arch-node--db { fill: var(--tint-soft); stroke: var(--tint); }
-.arch-title { fill: var(--ink); font-size: 16px; font-weight: 700; }
-.arch-sub { fill: var(--muted); font-size: 14px; }
-.arch-label { fill: var(--accent-ink); font-size: 12px; font-weight: 600; }
-.arch-link { stroke: var(--accent); stroke-width: 2; }
-.arch-arrow-head { fill: var(--accent); }
-
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 22px;
-}
-.card h3 { font-size: 17px; margin-bottom: 8px; }
-.card p { color: var(--muted); font-size: 15px; }
-
 /* Footer */
 .site-footer {
   margin-top: 96px;
@@ -547,11 +516,6 @@ section[id], div[id] { scroll-margin-top: 72px; }
   .feature { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 64px; }
   .feature--flip .feature-copy { order: 2; }
   .feature--flip .feature-media { order: 1; }
-
-  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .arch-narrow { display: none; }
-  .arch-wide { display: block; }
-  .arch { margin-bottom: 56px; }
 }
 
 @media (max-width: 819.98px) {
@@ -559,19 +523,12 @@ section[id], div[id] { scroll-margin-top: 72px; }
   .nav-links { gap: 18px; }
   .feature { padding: 48px 0; }
   .section { padding-top: 72px; }
-  .cards { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 479.98px) {
   .nav { gap: 12px; }
   .nav-links { gap: 12px; font-size: 14px; }
   .wordmark { font-size: 15px; letter-spacing: 0.04em; }
-  /* The hero's primary button already links to GitHub; phones need the room for all three links. */
-  .nav > .btn { display: none; }
-}
-
-@media (min-width: 560px) and (max-width: 819.98px) {
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Reduced motion: no transitions, no smooth scrolling */
