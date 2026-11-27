@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WIMS: Warehouse Inventory Management System</title>
+  <meta name="description" content="A role-based web app for running a small warehouse: track stock, record goods in and out, catch low stock before it runs out, and take purchase orders from draft to delivered.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C9822B'/%3E%3Ctext x='16' y='22' font-size='15' font-family='Arial' font-weight='700' text-anchor='middle' fill='%231F1B16'%3EW%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav wrap" aria-label="Primary">
+    <a class="wordmark" href="#top">WIMS</a>
+    <ul class="nav-links">
+      <li><a href="#walkthrough">Walkthrough</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#built">How it's built</a></li>
+    </ul>
+    <a class="btn btn-ghost btn-small" href="https://github.com/Danica-YI/WareHouse-Inventory-Management-System" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Full-stack web app · React · Node.js · MongoDB</p>
+        <h1 id="hero-title">WIMS: Warehouse Inventory Management System</h1>
+        <p class="lede">A role-based web app for running a small warehouse: track stock, record goods in and out, catch low stock before it runs out, and take purchase orders from draft to delivered.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/Danica-YI/WareHouse-Inventory-Management-System" target="_blank" rel="noopener">View the code on GitHub</a>
+          <a class="btn btn-secondary" id="demo-link" href="https://ware-house-inventory-management-sys.vercel.app" target="_blank" rel="noopener">Try the live demo</a>
+        </div>
+      </div>
+      <figure class="shot shot-hero">
+        <div class="frame">
+          <div class="frame-bar" aria-hidden="true">
+            <span class="dots"><span></span><span></span><span></span></span>
+            <span class="url-pill">wims.app/dashboard</span>
+          </div>
+          <button class="shot-open" type="button" data-caption="Admin dashboard of the WIMS app">
+            <img src="media/roles-2-admin-dashboard.png" width="1920" height="1200" alt="Admin dashboard of the WIMS app" fetchpriority="high">
+          </button>
+        </div>
+      </figure>
+    </div>
+    <div class="wrap">
+      <ul class="facts">
+        <li>8 modules</li>
+        <li>2 roles: Admin and Staff</li>
+        <li>REST API with JWT auth</li>
+        <li>Tested and deployed with CI/CD</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Walkthrough -->
+  <section class="section" id="walkthrough" aria-labelledby="walkthrough-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="walkthrough-title">See it work end to end</h2>
+        <p class="section-sub">One low-stock problem, from the sale that causes it to the delivery that fixes it.</p>
+      </header>
+
+      <div class="player" data-player="walkthrough" data-active="0">
+        <div class="player-stage">
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-player-pill>wims.app/outbound</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Staff record an outbound sale of 380 rolls of packing tape.">
+                <img data-player-img src="media/loop-1.png" width="1920" height="1200" loading="lazy" alt="Staff record an outbound sale of 380 rolls of packing tape.">
+              </button>
+            </div>
+          </figure>
+          <div class="player-bar" aria-hidden="true"><span class="player-bar-fill" data-player-bar></span></div>
+          <div class="player-controls">
+            <button class="btn btn-ghost btn-small" type="button" data-prev>Previous</button>
+            <span class="player-count" data-player-count aria-live="off">1 of 8</span>
+            <button class="btn btn-ghost btn-small" type="button" data-next>Next</button>
+            <button class="btn btn-ghost btn-small" type="button" data-toggle aria-pressed="false">Pause</button>
+          </div>
+        </div>
+
+        <ol class="player-steps">
+          <li><button class="step" type="button" data-step data-src="media/loop-1.png" data-pill="wims.app/outbound"><span class="num">1</span><span class="step-text">Staff record an outbound sale of 380 rolls of packing tape.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-2.png" data-pill="wims.app/alerts"><span class="num">2</span><span class="step-text">Stock drops below its threshold, so a low-stock alert appears for the admin automatically.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-3.png" data-pill="wims.app/orders"><span class="num">3</span><span class="step-text">The admin clicks Reorder and drafts a purchase order with the supplier.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-4.png" data-pill="wims.app/orders"><span class="num">4</span><span class="step-text">The order is submitted and waits for approval.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-5.png" data-pill="wims.app/orders"><span class="num">5</span><span class="step-text">Once approved, the admin adds the carrier and tracking number.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-6.png" data-pill="wims.app/orders"><span class="num">6</span><span class="step-text">The order is marked as shipped and its progress bar moves along.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-7.png" data-pill="wims.app/inbound"><span class="num">7</span><span class="step-text">When the delivery arrives, staff confirm it on the Inbound screen.</span></button></li>
+          <li><button class="step" type="button" data-step data-src="media/loop-8.png" data-pill="wims.app/stocks"><span class="num">8</span><span class="step-text">Stock is topped back up automatically: 80 → 380 rolls.</span></button></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <div class="section section--tint" id="features">
+    <div class="wrap">
+      <header class="section-head">
+        <h2>Everything it does</h2>
+      </header>
+
+      <!-- 1. Sign-in and roles -->
+      <section class="feature" id="roles" aria-labelledby="roles-title">
+        <div class="feature-copy">
+          <h3 id="roles-title">Sign-in and roles <span class="badge">Admin + Staff</span></h3>
+          <ul class="bullets">
+            <li>Secure login with JSON Web Tokens; passwords are hashed with bcrypt.</li>
+            <li>Admins and staff get different dashboards and menus.</li>
+            <li>Admin-only actions are enforced by the API, not just hidden in the UI.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-gallery-pill>wims.app/login</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Sign in">
+                <img data-gallery-img src="media/roles-1-login.png" width="1920" height="1200" loading="lazy" alt="Sign in page">
+              </button>
+            </div>
+            <figcaption data-gallery-caption>Sign in</figcaption>
+          </figure>
+          <div class="thumbs">
+            <button class="thumb" type="button" aria-pressed="true" data-src="media/roles-1-login.png" data-alt="Sign in page" data-pill="wims.app/login" data-label="Sign in"><img src="media/roles-1-login.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Sign in</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/roles-2-admin-dashboard.png" data-alt="Admin dashboard" data-pill="wims.app/dashboard" data-label="Admin dashboard"><img src="media/roles-2-admin-dashboard.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Admin dashboard</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/roles-3-staff-dashboard.png" data-alt="Staff dashboard" data-pill="wims.app/dashboard" data-label="Staff dashboard"><img src="media/roles-3-staff-dashboard.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Staff dashboard</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Stock management -->
+      <section class="feature feature--flip" id="stock" aria-labelledby="stock-title">
+        <div class="feature-copy">
+          <h3 id="stock-title">Stock management</h3>
+          <ul class="bullets">
+            <li>Add, edit and delete products with SKU, category, unit, price and a low-stock threshold.</li>
+            <li>Search the catalogue as you type.</li>
+            <li>Quantities update automatically from sales, deliveries and approved adjustments.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-gallery-pill>wims.app/stocks</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Stock list">
+                <img data-gallery-img src="media/stock-1-list.png" width="1920" height="1200" loading="lazy" alt="Stock list">
+              </button>
+            </div>
+            <figcaption data-gallery-caption>Stock list</figcaption>
+          </figure>
+          <div class="thumbs">
+            <button class="thumb" type="button" aria-pressed="true" data-src="media/stock-1-list.png" data-alt="Stock list" data-pill="wims.app/stocks" data-label="Stock list"><img src="media/stock-1-list.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Stock list</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/stock-2.png" data-alt="Add a product" data-pill="wims.app/stocks" data-label="Add a product"><img src="media/stock-2.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Add a product</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Goods in and out -->
+      <section class="feature" id="movements" aria-labelledby="movements-title">
+        <div class="feature-copy">
+          <h3 id="movements-title">Goods in and out <span class="badge">Staff</span></h3>
+          <ul class="bullets">
+            <li>Record sales and supplier returns by SKU; the product name fills in automatically.</li>
+            <li>An outbound is blocked if there isn't enough stock.</li>
+            <li>Inbound lists shipped orders waiting to be received.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-gallery-pill>wims.app/outbound</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Outbound">
+                <img data-gallery-img src="media/movements-2-outbound.png" width="1920" height="1200" loading="lazy" alt="Outbound sales screen">
+              </button>
+            </div>
+            <figcaption data-gallery-caption>Outbound</figcaption>
+          </figure>
+          <div class="thumbs">
+            <button class="thumb" type="button" aria-pressed="true" data-src="media/movements-2-outbound.png" data-alt="Outbound sales screen" data-pill="wims.app/outbound" data-label="Outbound"><img src="media/movements-2-outbound.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Outbound</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/movements-1-inbound.png" data-alt="Inbound screen listing shipped orders" data-pill="wims.app/inbound" data-label="Inbound"><img src="media/movements-1-inbound.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Inbound</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Low-stock alerts -->
+      <section class="feature feature--flip" id="alerts" aria-labelledby="alerts-title">
+        <div class="feature-copy">
+          <h3 id="alerts-title">Low-stock alerts <span class="badge">Admin acts</span></h3>
+          <ul class="bullets">
+            <li>Raised automatically when a product falls to its threshold.</li>
+            <li>One open alert per product, so they never pile up.</li>
+            <li>Admins reorder or ignore, with a note; every outcome is kept.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-gallery-pill>wims.app/alerts</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Active alerts">
+                <img data-gallery-img src="media/alerts-1-list.png" width="1920" height="1200" loading="lazy" alt="Active low-stock alerts">
+              </button>
+            </div>
+            <figcaption data-gallery-caption>Active alerts</figcaption>
+          </figure>
+          <div class="thumbs">
+            <button class="thumb" type="button" aria-pressed="true" data-src="media/alerts-1-list.png" data-alt="Active low-stock alerts" data-pill="wims.app/alerts" data-label="Active alerts"><img src="media/alerts-1-list.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Active alerts</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/alerts-2.png" data-alt="Alert history" data-pill="wims.app/alerts" data-label="Alert history"><img src="media/alerts-2.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Alert history</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Purchase orders -->
+      <section class="feature" id="orders" aria-labelledby="orders-title">
+        <div class="feature-copy">
+          <h3 id="orders-title">Purchase orders <span class="badge">Admin only</span></h3>
+          <ul class="bullets">
+            <li>Draft → Pending → Approved → Shipped → Received, with a progress bar.</li>
+            <li>A carrier and tracking number are required before shipping.</li>
+            <li>Receiving an order adds its items to stock.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-gallery-pill>wims.app/orders</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="All orders">
+                <img data-gallery-img src="media/orders-1-list.png" width="1920" height="1200" loading="lazy" alt="All purchase orders">
+              </button>
+            </div>
+            <figcaption data-gallery-caption>All orders</figcaption>
+          </figure>
+          <div class="thumbs">
+            <button class="thumb" type="button" aria-pressed="true" data-src="media/orders-1-list.png" data-alt="All purchase orders" data-pill="wims.app/orders" data-label="All orders"><img src="media/orders-1-list.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">All orders</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/loop-4.png" data-alt="Order details" data-pill="wims.app/orders" data-label="Order details"><img src="media/loop-4.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Order details</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/loop-6.png" data-alt="Shipped order with tracking" data-pill="wims.app/orders" data-label="Shipped with tracking"><img src="media/loop-6.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Shipped with tracking</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Suppliers -->
+      <section class="feature feature--flip" id="suppliers" aria-labelledby="suppliers-title">
+        <div class="feature-copy">
+          <h3 id="suppliers-title">Suppliers <span class="badge">Admin only</span></h3>
+          <ul class="bullets">
+            <li>Contact details and product categories for every supplier.</li>
+            <li>Search, add, edit and delete suppliers.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill" data-gallery-pill>wims.app/suppliers</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Supplier directory">
+                <img data-gallery-img src="media/suppliers-1-list.png" width="1920" height="1200" loading="lazy" alt="Supplier directory">
+              </button>
+            </div>
+            <figcaption data-gallery-caption>Supplier directory</figcaption>
+          </figure>
+          <div class="thumbs">
+            <button class="thumb" type="button" aria-pressed="true" data-src="media/suppliers-1-list.png" data-alt="Supplier directory" data-pill="wims.app/suppliers" data-label="Supplier directory"><img src="media/suppliers-1-list.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Supplier directory</span></button>
+            <button class="thumb" type="button" aria-pressed="false" data-src="media/suppliers-2.png" data-alt="Add a supplier" data-pill="wims.app/suppliers" data-label="Add a supplier"><img src="media/suppliers-2.png" width="1920" height="1200" loading="lazy" alt=""><span class="thumb-label">Add a supplier</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Stock adjustments -->
+      <section class="feature feature--wide" id="adjustments" aria-labelledby="adjustments-title">
+        <div class="feature-head">
+          <h3 id="adjustments-title">Stock adjustments <span class="badge">Staff request · Admin approves</span></h3>
+        </div>
+        <div class="player" data-player="adjustments" data-active="0">
+          <div class="player-stage">
+            <figure class="shot">
+              <div class="frame">
+                <div class="frame-bar" aria-hidden="true">
+                  <span class="dots"><span></span><span></span><span></span></span>
+                  <span class="url-pill" data-player-pill>wims.app/adjustments</span>
+                </div>
+                <button class="shot-open" type="button" data-caption="Staff count the shelf; a mismatch is flagged as inconsistent.">
+                  <img data-player-img src="media/adjust-1.png" width="1920" height="1200" loading="lazy" alt="Staff count the shelf; a mismatch is flagged as inconsistent.">
+                </button>
+              </div>
+            </figure>
+            <div class="player-bar" aria-hidden="true"><span class="player-bar-fill" data-player-bar></span></div>
+            <div class="player-controls">
+              <button class="btn btn-ghost btn-small" type="button" data-prev>Previous</button>
+              <span class="player-count" data-player-count aria-live="off">1 of 4</span>
+              <button class="btn btn-ghost btn-small" type="button" data-next>Next</button>
+              <button class="btn btn-ghost btn-small" type="button" data-toggle aria-pressed="false">Pause</button>
+            </div>
+          </div>
+          <ol class="player-steps">
+            <li><button class="step" type="button" data-step data-src="media/adjust-1.png" data-pill="wims.app/adjustments"><span class="num">1</span><span class="step-text">Staff count the shelf; a mismatch is flagged as inconsistent.</span></button></li>
+            <li><button class="step" type="button" data-step data-src="media/adjust-2.png" data-pill="wims.app/adjustments"><span class="num">2</span><span class="step-text">They send an adjustment request with a reason.</span></button></li>
+            <li><button class="step" type="button" data-step data-src="media/adjust-3.png" data-pill="wims.app/adjustments"><span class="num">3</span><span class="step-text">The admin reviews pending requests.</span></button></li>
+            <li><button class="step" type="button" data-step data-src="media/adjust-4.png" data-pill="wims.app/adjustments"><span class="num">4</span><span class="step-text">Once approved, the stock quantity is corrected and the request moves to history.</span></button></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 8. User management -->
+      <section class="feature feature--flip" id="users" aria-labelledby="users-title">
+        <div class="feature-copy">
+          <h3 id="users-title">User management <span class="badge">Admin only</span></h3>
+          <ul class="bullets">
+            <li>See every account with its role and status.</li>
+            <li>Promote staff to admin, or back, from a dropdown.</li>
+          </ul>
+        </div>
+        <div class="feature-media" data-gallery>
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill">wims.app/users</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="User list">
+                <img src="media/users-1-list.png" width="1920" height="1200" loading="lazy" alt="User list with roles and status">
+              </button>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 9. Global search -->
+      <section class="feature" id="search" aria-labelledby="search-title">
+        <div class="feature-copy">
+          <h3 id="search-title">Global search</h3>
+          <ul class="bullets">
+            <li>Search products, orders and suppliers at once from the dashboard.</li>
+            <li>Each result jumps straight to the matching record.</li>
+          </ul>
+        </div>
+        <div class="feature-media">
+          <figure class="shot">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <span class="dots"><span></span><span></span><span></span></span>
+                <span class="url-pill">wims.app/search</span>
+              </div>
+              <button class="shot-open" type="button" data-caption="Search results">
+                <img src="media/search-1-results.png" width="1920" height="1200" loading="lazy" alt="Global search results">
+              </button>
+            </div>
+          </figure>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- How it's built -->
+  <section class="section" id="built" aria-labelledby="built-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="built-title">How it's built</h2>
+      </header>
+
+      <figure class="arch" aria-label="Architecture: browser React SPA to Express REST API to MongoDB Atlas">
+        <svg class="arch-wide" viewBox="0 0 968 150" role="img" aria-labelledby="arch-wide-title">
+          <title id="arch-wide-title">Browser: React SPA (Vercel), HTTPS, JSON and JWT to Express REST API (Render), Mongoose to MongoDB Atlas</title>
+          <defs>
+            <marker id="arrow-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" class="arch-arrow-head"></path>
+            </marker>
+          </defs>
+          <rect class="arch-node" x="0" y="30" width="232" height="90" rx="12"></rect>
+          <text class="arch-title" x="116" y="66" text-anchor="middle">Browser:</text>
+          <text class="arch-sub" x="116" y="92" text-anchor="middle">React SPA (Vercel)</text>
+
+          <line class="arch-link" x1="236" y1="75" x2="364" y2="75" marker-end="url(#arrow-w)"></line>
+          <text class="arch-label" x="300" y="66" text-anchor="middle">HTTPS · JSON · JWT</text>
+
+          <rect class="arch-node" x="368" y="30" width="232" height="90" rx="12"></rect>
+          <text class="arch-title" x="484" y="66" text-anchor="middle">Express REST API</text>
+          <text class="arch-sub" x="484" y="92" text-anchor="middle">(Render)</text>
+
+          <line class="arch-link" x1="604" y1="75" x2="732" y2="75" marker-end="url(#arrow-w)"></line>
+          <text class="arch-label" x="668" y="66" text-anchor="middle">Mongoose</text>
+
+          <rect class="arch-node arch-node--db" x="736" y="30" width="232" height="90" rx="12"></rect>
+          <text class="arch-title" x="852" y="81" text-anchor="middle">MongoDB Atlas</text>
+        </svg>
+
+        <svg class="arch-narrow" viewBox="0 0 320 316" role="img" aria-labelledby="arch-narrow-title">
+          <title id="arch-narrow-title">Browser: React SPA (Vercel), HTTPS, JSON and JWT to Express REST API (Render), Mongoose to MongoDB Atlas</title>
+          <defs>
+            <marker id="arrow-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" class="arch-arrow-head"></path>
+            </marker>
+          </defs>
+          <rect class="arch-node" x="20" y="0" width="280" height="72" rx="12"></rect>
+          <text class="arch-title" x="160" y="30" text-anchor="middle">Browser:</text>
+          <text class="arch-sub" x="160" y="52" text-anchor="middle">React SPA (Vercel)</text>
+
+          <line class="arch-link" x1="160" y1="74" x2="160" y2="116" marker-end="url(#arrow-n)"></line>
+          <text class="arch-label" x="176" y="99" text-anchor="start">HTTPS · JSON · JWT</text>
+
+          <rect class="arch-node" x="20" y="118" width="280" height="72" rx="12"></rect>
+          <text class="arch-title" x="160" y="148" text-anchor="middle">Express REST API</text>
+          <text class="arch-sub" x="160" y="170" text-anchor="middle">(Render)</text>
+
+          <line class="arch-link" x1="160" y1="192" x2="160" y2="234" marker-end="url(#arrow-n)"></line>
+          <text class="arch-label" x="176" y="217" text-anchor="start">Mongoose</text>
+
+          <rect class="arch-node arch-node--db" x="20" y="236" width="280" height="72" rx="12"></rect>
+          <text class="arch-title" x="160" y="278" text-anchor="middle">MongoDB Atlas</text>
+        </svg>
+      </figure>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Frontend</h3>
+          <p>React 19, Vite, React Router, Axios</p>
+        </article>
+        <article class="card">
+          <h3>Backend</h3>
+          <p>Node.js, Express 5, Mongoose; REST API with 8 resources</p>
+        </article>
+        <article class="card">
+          <h3>Database</h3>
+          <p>MongoDB Atlas</p>
+        </article>
+        <article class="card">
+          <h3>Auth</h3>
+          <p>JWT, bcrypt, role-based middleware</p>
+        </article>
+        <article class="card">
+          <h3>Testing</h3>
+          <p>Mocha, Chai, Sinon, Supertest</p>
+        </article>
+        <article class="card">
+          <h3>CI/CD and hosting</h3>
+          <p>GitHub Actions to AWS EC2 with Nginx and PM2; now Vercel and Render</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <ul class="footer-list">
+      <li>Screenshots are from the real app, running with sample data.</li>
+      <li>Live demo logins: admin1@gmail.com / 123 (Admin), staff1@gmail.com / 123 (Staff)</li>
+      <li>Built by <a href="https://github.com/Danica-YI" target="_blank" rel="noopener">Danica-YI</a></li>
+    </ul>
+  </div>
+</footer>
+
+<dialog id="lightbox" aria-labelledby="lightbox-caption">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>
+    </button>
+    <figure class="lb-figure">
+      <img id="lightbox-img" src="media/roles-2-admin-dashboard.png" width="1920" height="1200" alt="">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+</dialog>
+</body>
+</html>
