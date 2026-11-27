@@ -7,6 +7,7 @@ import { ROOT, startStack } from './stack.mjs';
 import { seed } from './seed.mjs';
 import { PASSWORD } from './data.mjs';
 import { flows } from './flows.mjs';
+import { settle, track } from './settle.mjs';
 
 const arg = name => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : undefined; };
 const OUT = path.resolve(arg('--out') || path.join(ROOT, 'site', 'media'));
@@ -30,12 +31,6 @@ export const pageShots = [
   ['search-1-results', 'admin', '/search?q=safety'],
 ];
 
-export async function settle(page) {
-  await page.waitForLoadState('networkidle');
-  await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(400);
-}
-
 export async function shoot(page, name) {
   const file = path.join(OUT, `${name}.png`);
   await page.screenshot({ path: file });
@@ -45,6 +40,7 @@ export async function shoot(page, name) {
 async function newSession(browser, webUrl, role) {
   const context = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1.5 });
   const page = await context.newPage();
+  track(page);
   page.on('pageerror', e => console.log(`  [pageerror] ${e.message}`));
   page.on('console', m => { if (m.type() === 'error') console.log(`  [console:${role || 'anon'}] ${m.text().slice(0, 160)}`); });
   page.on('response', r => { if (r.status() >= 400) console.log(`  [http:${role || 'anon'}] ${r.status()} ${r.request().method()} ${r.url()}`); });

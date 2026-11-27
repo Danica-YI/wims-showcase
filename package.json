@@ -9,7 +9,8 @@
     "capture": "node capture/capture.mjs",
     "check": "node capture/check-site.mjs",
     "check:stack": "node capture/stack.mjs --check",
-    "check:seed": "node capture/seed.mjs --check"
+    "check:seed": "node capture/seed.mjs --check",
+    "check:settle": "node capture/check-settle.mjs"
   },
   "keywords": [],
   "author": "",

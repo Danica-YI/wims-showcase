@@ -83,6 +83,19 @@ async function checkViewport(browser, viewport) {
   const broken = await brokenImages(page);
   report(`${label} images load`, broken.length === 0, `${broken.length} broken: ${broken.slice(0, 5).join(', ')}`);
 
+  // 3b. Every frame a step player or thumbnail can swap in (data-src) loads too
+  const badFrames = await page.evaluate(async () => {
+    const srcs = [...new Set([...document.querySelectorAll('[data-src]')].map((el) => el.getAttribute('data-src')))];
+    const results = await Promise.all(srcs.map((src) => new Promise((resolve) => {
+      const im = new Image();
+      im.onload = () => resolve(im.naturalWidth > 0 ? null : src);
+      im.onerror = () => resolve(src);
+      im.src = src;
+    })));
+    return results.filter(Boolean);
+  });
+  report(`${label} player and thumbnail frames load`, badFrames.length === 0, `${badFrames.length} broken: ${badFrames.slice(0, 5).join(', ')}`);
+
   // 4. No horizontal overflow
   const overflow = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
@@ -103,6 +116,9 @@ async function checkViewport(browser, viewport) {
   const openedAfterClick = await page.evaluate(() => document.getElementById('lightbox').open);
   let closedAfterEscape = false;
   if (openedAfterClick) {
+    const box = await page.locator('#lightbox .lb-close').boundingBox();
+    const onScreen = !!box && box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width;
+    report(`${label} lightbox close button fully on screen`, onScreen, JSON.stringify(box));
     await page.keyboard.press('Escape');
     await page.waitForFunction(() => !document.getElementById('lightbox').open, null, { timeout: 3000 })
       .then(() => { closedAfterEscape = true; })

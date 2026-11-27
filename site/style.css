@@ -451,7 +451,8 @@ section[id], div[id] { scroll-margin-top: 72px; }
   border: 0;
   padding: 0;
   background: transparent;
-  max-width: min(1500px, 96vw);
+  /* Leave room for the close button, which sits 14px outside the corner. */
+  max-width: min(1500px, calc(96vw - 32px));
   max-height: 94vh;
   overflow: visible;
   color: var(--ink);

@@ -28,8 +28,9 @@ To capture a newer version of WIMS, delete `.wims/` first so it is cloned again.
 |---|---|
 | `npm run check:stack` | the local app starts and stops cleanly |
 | `npm run check:seed` | the sample data loads (14 products, 5 suppliers, orders in every status) |
+| `npm run check:settle` | screenshots wait until the page has finished loading after a click |
 | `npm run capture` | re-takes all screenshots |
-| `npm run check` | the page: images load, no errors, no sideways scrolling, lightbox and walkthrough work |
+| `npm run check` | the page: every image and walkthrough frame loads, no errors, no sideways scrolling, lightbox (close button on screen) and walkthrough work |
 
 The sample data lives in `capture/data.mjs`; the multi-step walkthroughs in `capture/flows.mjs`.
 
