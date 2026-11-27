@@ -1,0 +1,4 @@
+node_modules/
+.wims/
+check-*.png
+.superpowers/

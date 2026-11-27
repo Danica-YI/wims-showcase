@@ -1,0 +1,22 @@
+{
+  "name": "wims-showcase",
+  "version": "1.0.0",
+  "description": "Recruiter showcase for WIMS",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "capture": "node capture/capture.mjs",
+    "check": "node capture/check-site.mjs",
+    "check:stack": "node capture/stack.mjs --check",
+    "check:seed": "node capture/seed.mjs --check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mongodb-memory-server": "^10.4.3",
+    "playwright": "^1.65.1"
+  },
+  "private": true
+}
